@@ -10,4 +10,7 @@
 
 echo
 echo "Build and run project"
-gcc main.c -o main && ./main
+gcc -c main.c
+gcc -c header.c
+gcc -o main main.o header.o
+./main
