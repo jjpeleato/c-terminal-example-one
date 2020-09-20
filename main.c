@@ -34,6 +34,7 @@ void showDistancesBetweenTowns();
 void showTwoMostFarTowns();
 int menuTowns();
 void showFarTownByTown();
+void showMiddletown();
 
 // Structs
 struct town
@@ -89,7 +90,7 @@ int main ()
                 commonAwait();
                 break;
             case 4:
-                printf ("Show middletown.");
+                showMiddletown();
                 commonAwait();
                 break;
             case 5:
@@ -310,11 +311,14 @@ void showTwoMostFarTowns()
     float value = 0.0;
 
     for(int i = 0; i < MAX; i++) {
-        float kilometer = towns[0].kilometers[0][i];
-        if (value < kilometer) {
-            value = kilometer;
-            firstTown = towns[0];
-            lastTown = towns[i];
+        for (int j = 0; j < MAX; j++) {
+            float kilometer = towns[i].kilometers[i][j];
+
+            if (value < kilometer) {
+                value = kilometer;
+                firstTown = towns[i];
+                lastTown = towns[j];
+            }
         }
     }
 
@@ -373,4 +377,32 @@ void showFarTownByTown()
     }
 
     printf("\nThe furthest town from %s is %s with %.2f kilometers", currentTown.name, lastTown.name, value);
+}
+
+/**
+ * \brief Short description
+ * \author José Javier Peleato Pradel
+ * \since 1.0.0
+ * \date 2020-09-20
+ * \return void
+ */
+void showMiddletown()
+{
+    printf ("Show middletown.");
+    struct town middleTown;
+    float value = 12000.0;
+
+    for(int i = 0; i < MAX; i++) {
+        float sum = 0.0;
+        for(int j = 0; j < MAX; j++) {
+            sum += towns[i].kilometers[i][j];
+        }
+
+        if (sum < value) {
+            middleTown = towns[i];
+            value = sum;
+        }
+    }
+
+    printf("\n\nThe most central town is %s with %.2f kilometers", middleTown.name, value);
 }
