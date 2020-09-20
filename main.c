@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX 3
+#define MAX 5
 
 // Prototypes
 void commonClear();
@@ -54,6 +54,7 @@ int main ()
 
     // STEP 2: Insert kilometer data
     addData();
+    commonClear();
 
     // STEP 3: Start menu
     int action;
@@ -224,8 +225,12 @@ void addData()
                 continue;
             }
 
-            printf("\nEnter from %s to %s: ", towns[i].name, towns[j].name);
-            scanf("%f", &towns[i].kilometers[i][j]);
+            if (j < i) {
+                towns[i].kilometers[i][j] = towns[j].kilometers[j][i];
+            } else {
+                printf("\nEnter from %s to %s: ", towns[i].name, towns[j].name);
+                scanf("%f", &towns[i].kilometers[i][j]);
+            }
         }
     }
 }
