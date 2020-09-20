@@ -21,6 +21,7 @@
 #include <stdlib.h>
 
 #define MAX 3
+#define ROUTE 50
 
 // Prototypes
 int checkMaxValue();
@@ -28,13 +29,14 @@ void commonClear();
 void commonAwait();
 void commonSleep();
 void drawSplashScreen();
-void addData();
 int menu();
+int menuTowns();
+void addData();
 void showDistancesBetweenTowns();
 void showTwoMostFarTowns();
-int menuTowns();
 void showFarTownByTown();
 void showMiddletown();
+void showMilkman();
 
 // Structs
 struct town
@@ -56,8 +58,8 @@ int main ()
     // STEP 0: Not run
     int isCheckMaxValue = checkMaxValue();
     if (isCheckMaxValue == 0) {
-        printf ("\nFor security reasons the program has been stopped.");
-        printf ("\nPlease check the MAX constant. It must have a value between 3 and 10, inclusive.\n");
+        printf("\nFor security reasons the program has been stopped.");
+        printf("\nPlease check the MAX constant. It must have a value between 3 and 10, inclusive.\n");
 
         return 0;
     }
@@ -94,14 +96,14 @@ int main ()
                 commonAwait();
                 break;
             case 5:
-                printf ("Calculate the number of kilometers the milkman trips.");
+                showMilkman();
                 commonAwait();
                 break;
             default:
                 break;
         }
-	}
-
+    }
+    
     return 0;
 }
 
@@ -149,7 +151,7 @@ void commonAwait()
     int await;
 
     do {
-        printf ("\n\nPress 0 to continue with the application: ");
+        printf("\n\nPress 0 to continue with the application: ");
         fflush(stdin);
 	    scanf("%d", &await);
 	} while (await != 0);
@@ -177,16 +179,16 @@ void commonSleep()
 void drawSplashScreen()
 {
     commonSleep();
-    printf ("\n"); commonSleep();
-	printf ("\n__        __   _"); commonSleep();
-	printf ("\n\\ \\      / /__| | ___ ___  _ __ ___   ___"); commonSleep();
-	printf ("\n \\ \\ /\\ / / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\"); commonSleep();
-	printf ("\n  \\ V  V /  __/ | (_| (_) | | | | | |  __/"); commonSleep();
-	printf ("\n   \\_/\\_/ \\___|_|\\___\\___/|_| |_| |_|\\___|"); commonSleep();
-	printf ("\n\n"); commonSleep();
-	printf ("\nTowns of Seville"); commonSleep();
-	printf ("\nVersion 1.0.0"); commonSleep();
-	printf ("\nJose Javier Peleato Pradel"); commonSleep();
+    printf("\n"); commonSleep();
+	printf("\n__        __   _"); commonSleep();
+	printf("\n\\ \\      / /__| | ___ ___  _ __ ___   ___"); commonSleep();
+	printf("\n \\ \\ /\\ / / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\"); commonSleep();
+	printf("\n  \\ V  V /  __/ | (_| (_) | | | | | |  __/"); commonSleep();
+	printf("\n   \\_/\\_/ \\___|_|\\___\\___/|_| |_| |_|\\___|"); commonSleep();
+	printf("\n\n"); commonSleep();
+	printf("\nTowns of Seville"); commonSleep();
+	printf("\nVersion 1.0.0"); commonSleep();
+	printf("\nJose Javier Peleato Pradel"); commonSleep();
 }
 
 /**
@@ -202,20 +204,46 @@ int menu()
 
     do {
         commonClear();
-        printf ("- Towns of Seville Software -");
-        printf ("\n\nMain menu.");
-        printf ("\n\n\t1 - Show distances table between towns.");
-        printf ("\n\t2 - Show the two most far towns.");
-        printf ("\n\t3 - Show far town by selected town.");
-        printf ("\n\t4 - Show middletown.");
-        printf ("\n\t5 - Calculate the number of kilometers the milkman trips.");
-        printf ("\n\t6 - Exit.");
-        printf ("\n\nInsert number: ");
+        printf("- Towns of Seville Software -");
+        printf("\n\nMain menu.");
+        printf("\n\n\t1 - Show distances table between towns.");
+        printf("\n\t2 - Show the two most far towns.");
+        printf("\n\t3 - Show far town by selected town.");
+        printf("\n\t4 - Show middletown.");
+        printf("\n\t5 - Calculate the number of kilometers the milkman trips.");
+        printf("\n\t6 - Exit.");
+        printf("\n\nInsert number: ");
         fflush(stdin);
-        scanf ("%d", &input);
+        scanf("%d", &input);
 	} while (input != 1 && input != 2 && input != 3 && input != 4 && input != 5 && input != 6);
 
     return input;
+}
+
+/**
+ * \brief Short description
+ * \author José Javier Peleato Pradel
+ * \since 1.0.0
+ * \date 2020-09-20
+ * \return int
+ */
+int menuTowns()
+{
+    int select;
+
+    do {
+        commonClear();
+
+        for (int i = 0; i < MAX; i++) {
+            printf("\n\t%d - %s", towns[i].id, towns[i].name);
+        }
+
+        printf("\n\nInsert number: ");
+        fflush(stdin);
+        scanf("%d", &select);
+	} while (select < 0 || select > (MAX-1));
+
+    return select;
 }
 
 /**
@@ -231,14 +259,15 @@ void addData()
     for(int i = 0; i < MAX; i++)
     {
         commonClear();
-        printf ("\n- Towns of Seville Software -");
+        printf("\n- Towns of Seville Software -");
         printf("\n\nEnter details of town %d", i + 1);
 
         // To assign id
         towns[i].id = i;
 
         // To assign name
-        printf("\nName: ");
+        printf("\n\nWhat is the town's name?: ");
+        fflush(stdin);
         scanf("%s", towns[i].name);
     }
 
@@ -246,8 +275,8 @@ void addData()
     for(int i = 0; i < MAX; i++)
     {
         commonClear();
-        printf ("\n- Towns of Seville Software -");
-        printf("\n\nAdd kilometers of town %s", towns[i].name);
+        printf("\n- Towns of Seville Software -");
+        printf("\n\nAdd kilometers of town %s\n", towns[i].name);
 
         for(int j = 0; j < MAX; j++) {
             if (i == j) {
@@ -258,9 +287,12 @@ void addData()
                 towns[i].kilometers[i][j] = towns[j].kilometers[j][i];
             } else {
                 printf("\nInsert from %s to %s: ", towns[i].name, towns[j].name);
+                fflush(stdin);
                 scanf("%f", &towns[i].kilometers[i][j]);
             }
         }
+
+        commonClear();
     }
 }
 
@@ -273,7 +305,7 @@ void addData()
  */
 void showDistancesBetweenTowns()
 {
-    printf ("Show distances table between towns.");
+    printf("Show distances table between towns.");
 
     // STEP 1: Print header
     printf("\n\n");
@@ -304,7 +336,7 @@ void showDistancesBetweenTowns()
  */
 void showTwoMostFarTowns()
 {
-    printf ("Show the two most far towns.");
+    printf("Show the two most far towns.");
 
     struct town firstTown;
     struct town lastTown;
@@ -330,37 +362,11 @@ void showTwoMostFarTowns()
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \return int
- */
-int menuTowns()
-{
-    int select;
-
-    do {
-        commonClear();
-
-        for (int i = 0; i < MAX; i++) {
-            printf("\n\t%d - %s", (i + 1), towns[i].name);
-        }
-
-        printf ("\n\nInsert number: ");
-        fflush(stdin);
-        scanf ("%d", &select);
-	} while (select < 1 || select > MAX);
-
-    return select - 1;
-}
-
-/**
- * \brief Short description
- * \author José Javier Peleato Pradel
- * \since 1.0.0
- * \date 2020-09-20
  * \return void
  */
 void showFarTownByTown()
 {
-    printf ("Show far town by selected town.\n");
+    printf("Show far town by selected town.\n");
 
     int townId = menuTowns();
     struct town currentTown;
@@ -388,7 +394,7 @@ void showFarTownByTown()
  */
 void showMiddletown()
 {
-    printf ("Show middletown.");
+    printf("Show middletown.");
     struct town middleTown;
     float value = 12000.0;
 
@@ -404,5 +410,84 @@ void showMiddletown()
         }
     }
 
-    printf("\n\nThe most central town is %s with %.2f kilometers", middleTown.name, value);
+    printf("\n\nThe most central town is %s with total %.2f kilometers", middleTown.name, value);
+}
+
+/**
+ * \brief Short description
+ * \author José Javier Peleato Pradel
+ * \since 1.0.0
+ * \date 2020-09-20
+ * \return void
+ */
+void showMilkman()
+{
+    int current;
+    int trip;
+    int trips[ROUTE];
+    int counter = 0;
+    int auxiliar = 0;
+
+    // STEP 1: Starting city
+    do {
+        commonClear();
+        printf("Calculate the number of kilometers the milkman trips.");
+        printf("\n\nWhere is the milkman?\n");
+
+        for (int i = 0; i < MAX; i++) {
+            printf("\n\t%d - %s", towns[i].id, towns[i].name);
+        }
+        
+        printf("\n\nInsert number: ");
+        fflush(stdin);
+        scanf("%d", &current);
+    } while (current < 0 || current > (MAX-1));
+
+    trips[counter] = current;
+    auxiliar = current;
+    
+    // STEP 2: Create the route
+    do {
+        commonClear();
+        printf("Calculate the number of kilometers the milkman trips.");
+        printf("\n\nWhat is the next town?");
+        printf("\n\n\t-1 - Exit");
+        
+        for (int i = 0; i < MAX; i++) {
+            if (i == auxiliar) {
+                continue;
+            }
+
+            printf("\n\t%d - %s", towns[i].id, towns[i].name);
+        }
+
+        printf("\n\nInsert number: ");
+        fflush(stdin);
+        scanf("%d", &trip);
+        
+        if (trip >= 0 && trip < MAX && auxiliar != trip) {
+            counter++;
+            trips[counter] = trip;
+            auxiliar = trip;
+        }
+    } while (trip != -1 && counter < ROUTE);
+
+    // STEP 3: Calculate the route
+    commonClear();
+    printf("Calculate the number of kilometers the milkman trips.\n");
+
+    float kilometers = 0.0;
+    for (int i = 0; i < counter; i++) {
+        int currentIndex = trips[i];
+        int nextIndex = trips[i+1];
+
+        struct town currentTown = towns[currentIndex];
+        struct town nextTown = towns[nextIndex];
+        float value = currentTown.kilometers[currentIndex][nextIndex];
+        kilometers += value;
+
+        printf("\nThe milkman has traveled %.2f kilometers from %s to %s", value, currentTown.name, nextTown.name);
+    }
+
+    printf("\n\nThe milkman total trip is: %.2f", kilometers);
 }
