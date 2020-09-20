@@ -27,6 +27,7 @@ void commonClear();
 void commonAwait();
 void commonSleep();
 void drawSplashScreen();
+void addData();
 int menu();
 
 // Structs
@@ -51,6 +52,7 @@ int main ()
     commonAwait();
 
     // STEP 2: Insert kilometer data
+    addData();
 
     // STEP 3: Start menu
     int action;
@@ -182,4 +184,46 @@ int menu()
 	} while (input != 1 && input != 2 && input != 3 && input != 4 && input != 5 && input != 6);
 
     return input;
+}
+
+/**
+ * \brief Short description
+ * \author José Javier Peleato Pradel
+ * \since 1.0.0
+ * \date 2020-09-20
+ * \returns void
+ */
+void addData()
+{
+    // STEP 1: Add names
+    for(int i = 0; i < MAX; i++)
+    {
+        commonClear();
+        printf ("\n- Towns of Seville Software -");
+        printf("\n\nEnter details of town %d", i + 1);
+
+        // To assign id
+        towns[i].id = i;
+
+        // To assign name
+        printf("\nName: ");
+        scanf("%s", towns[i].name);
+    }
+
+    // STEP 2: Add kilometers
+    for(int i = 0; i < MAX; i++)
+    {
+        commonClear();
+        printf ("\n- Towns of Seville Software -");
+        printf("\n\nEnter kilometers of town %s", towns[i].name);
+
+        for(int j = 0; j < MAX; j++) {
+            if (i == j) {
+                continue;
+            }
+
+            printf("\nEnter from %s to %s: ", towns[i].name, towns[j].name);
+            scanf("%f", &towns[i].kilometers[i][j]);
+        }
+    }
 }
