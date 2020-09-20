@@ -450,8 +450,9 @@ void showMilkman()
     do {
         commonClear();
         printf("Calculate the number of kilometers the milkman trips.");
-        printf("\n\nWhat is the next town?\n");
-
+        printf("\n\nWhat is the next town?");
+        printf("\n\n\t-1 - Exit");
+        
         for (int i = 0; i < MAX; i++) {
             if (i == auxiliar) {
                 continue;
@@ -472,9 +473,21 @@ void showMilkman()
     } while (trip != -1 && counter < ROUTE);
 
     // STEP 3: Calculate the route
-    float kilometers;
-    for (int i = 0; i <= counter; i++) {
-        int index = trips[i];
-        printf("\nI %d Counter %d Index %d", i, counter, index);
+    commonClear();
+    printf("Calculate the number of kilometers the milkman trips.\n");
+
+    float kilometers = 0.0;
+    for (int i = 0; i < counter; i++) {
+        int currentIndex = trips[i];
+        int nextIndex = trips[i+1];
+
+        struct town currentTown = towns[currentIndex];
+        struct town nextTown = towns[nextIndex];
+        float value = currentTown.kilometers[currentIndex][nextIndex];
+        kilometers += value;
+
+        printf("\nThe milkman has traveled %.2f kilometers from %s to %s", value, currentTown.name, nextTown.name);
     }
+
+    printf("\n\nThe milkman total trip is: %.2f", kilometers);
 }
