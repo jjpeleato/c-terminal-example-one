@@ -1,6 +1,9 @@
 /**
  * \file main.c
- * \brief Short description
+ * \brief Towns of Seville.
+ * The Andalusian government has explained that there are 10 towns in Seville and that it is going to provide us with the distances in kilometers between each of the towns.
+ * 
+ * Build a software that saved, showed and calculate the kilometers between towns.
  * \author José Javier Peleato Pradel
  * \version 1.0.0
  * \date 2020-09-20
@@ -38,7 +41,10 @@ void showFarTownByTown();
 void showMiddletown();
 void showMilkman();
 
-// Structs
+/**
+ * \struct town
+ * \brief Represents a structure of a town.
+ */
 struct town
 {
     int id;
@@ -48,10 +54,12 @@ struct town
 struct town towns[MAX];
 
 /**
- * \brief Main function
+ * \brief Main function.
+ * Software that saved, showed and calculate the kilometers between towns.
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
+ * \return int Returns zero if successful. Any other number an error has occurred
  */
 int main ()
 {
@@ -108,11 +116,11 @@ int main ()
 }
 
 /**
- * \brief Do not execute when the MAX variable is less than 3 and more than 10
+ * \brief Do not execute when the MAX variable is less than 3 and more than 10.
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \return int
+ * \return int If the value is 0 the MAX constant is out of range, inversely, the value 1, it is fine.
  */
 int checkMaxValue()
 {
@@ -124,11 +132,11 @@ int checkMaxValue()
 }
 
 /**
- * \brief Short description
+ * \brief Clear terminal according Operating System
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \return void
+ * \return void Does not return anything
  */
 void commonClear()
 {
@@ -140,11 +148,11 @@ void commonClear()
 }
 
 /**
- * \brief Short description
+ * \brief Common function to force a wait in the execution
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \return void
+ * \return void Does not return anything
  */
 void commonAwait()
 {
@@ -158,23 +166,23 @@ void commonAwait()
 }
 
 /**
- * \brief Short description
+ * \brief Common function to force a sleep in the execution
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \return void
+ * \return void Does not return anything
  */
 void commonSleep()
 {
-    sleep(0.500);
+    sleep(1);
 }
 
 /**
- * \brief Short description
+ * \brief Function that displays a Splash Screen
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \return void
+ * \return void Does not return anything
  */
 void drawSplashScreen()
 {
@@ -192,11 +200,11 @@ void drawSplashScreen()
 }
 
 /**
- * \brief Short description
+ * \brief Function that displays a main menu
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \return int
+ * \return int Returns the number of the action
  */
 int menu()
 {
@@ -221,11 +229,11 @@ int menu()
 }
 
 /**
- * \brief Short description
+ * \brief Function that displays a towns menu
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \return int
+ * \return int Returns the number of the town
  */
 int menuTowns()
 {
@@ -247,11 +255,11 @@ int menuTowns()
 }
 
 /**
- * \brief Short description
+ * \brief Data insert process
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \return void
+ * \return void Does not return anything
  */
 void addData()
 {
@@ -297,11 +305,11 @@ void addData()
 }
 
 /**
- * \brief Short description
+ * \brief Show distances table between towns
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \return void
+ * \return void Does not return anything
  */
 void showDistancesBetweenTowns()
 {
@@ -328,11 +336,11 @@ void showDistancesBetweenTowns()
 }
 
 /**
- * \brief Short description
+ * \brief Show the two most far towns
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \return void
+ * \return void Does not return anything
  */
 void showTwoMostFarTowns()
 {
@@ -358,11 +366,11 @@ void showTwoMostFarTowns()
 }
 
 /**
- * \brief Short description
+ * \brief Show furthest town by selected town
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \return void
+ * \return void Does not return anything
  */
 void showFarTownByTown()
 {
@@ -386,11 +394,12 @@ void showFarTownByTown()
 }
 
 /**
- * \brief Short description
+ * \brief Show middletown
+ * The most central town is calculated by adding the distances from that town to all others, the town have a smaller value.
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \return void
+ * \return void Does not return anything
  */
 void showMiddletown()
 {
@@ -414,11 +423,11 @@ void showMiddletown()
 }
 
 /**
- * \brief Short description
+ * \brief Calculate the number of kilometers the milkman trips
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \return void
+ * \return void Does not return anything
  */
 void showMilkman()
 {
