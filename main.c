@@ -32,6 +32,8 @@ void addData();
 int menu();
 void showDistancesBetweenTowns();
 void showTwoMostFarTowns();
+int menuTowns();
+void showFarTownByTown();
 
 // Structs
 struct town
@@ -75,17 +77,15 @@ int main ()
 
         switch (action) {
             case 1:
-                printf ("Show distances table between towns.");
                 showDistancesBetweenTowns();
                 commonAwait();
                 break;
             case 2:
-                printf ("Show the two most far towns.");
                 showTwoMostFarTowns();
                 commonAwait();
                 break;
             case 3:
-                printf ("Show far town by selected town.");
+                showFarTownByTown();
                 commonAwait();
                 break;
             case 4:
@@ -109,7 +109,7 @@ int main ()
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \returns int
+ * \return int
  */
 int checkMaxValue()
 {
@@ -125,7 +125,7 @@ int checkMaxValue()
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \returns void
+ * \return void
  */
 void commonClear()
 {
@@ -141,7 +141,7 @@ void commonClear()
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \returns void
+ * \return void
  */
 void commonAwait()
 {
@@ -159,7 +159,7 @@ void commonAwait()
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \returns void
+ * \return void
  */
 void commonSleep()
 {
@@ -171,7 +171,7 @@ void commonSleep()
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \returns void
+ * \return void
  */
 void drawSplashScreen()
 {
@@ -193,7 +193,7 @@ void drawSplashScreen()
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \returns int
+ * \return int
  */
 int menu()
 {
@@ -222,7 +222,7 @@ int menu()
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \returns void
+ * \return void
  */
 void addData()
 {
@@ -268,10 +268,12 @@ void addData()
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \returns void
+ * \return void
  */
 void showDistancesBetweenTowns()
 {
+    printf ("Show distances table between towns.");
+
     // STEP 1: Print header
     printf("\n\n");
     for (int i = 0; i < MAX; i++) {
@@ -297,10 +299,12 @@ void showDistancesBetweenTowns()
  * \author José Javier Peleato Pradel
  * \since 1.0.0
  * \date 2020-09-20
- * \returns void
+ * \return void
  */
 void showTwoMostFarTowns()
 {
+    printf ("Show the two most far towns.");
+
     struct town firstTown;
     struct town lastTown;
     float value = 0.0;
@@ -315,4 +319,58 @@ void showTwoMostFarTowns()
     }
 
     printf("\n\nThe most far towns are %s and %s with %.2f kilometers", firstTown.name, lastTown.name, value);
+}
+
+/**
+ * \brief Short description
+ * \author José Javier Peleato Pradel
+ * \since 1.0.0
+ * \date 2020-09-20
+ * \return int
+ */
+int menuTowns()
+{
+    int select;
+
+    do {
+        commonClear();
+
+        for (int i = 0; i < MAX; i++) {
+            printf("\n\t%d - %s", (i + 1), towns[i].name);
+        }
+
+        printf ("\n\nInsert number: ");
+        fflush(stdin);
+        scanf ("%d", &select);
+	} while (select < 1 || select > MAX);
+
+    return select - 1;
+}
+
+/**
+ * \brief Short description
+ * \author José Javier Peleato Pradel
+ * \since 1.0.0
+ * \date 2020-09-20
+ * \return void
+ */
+void showFarTownByTown()
+{
+    printf ("Show far town by selected town.\n");
+
+    int townId = menuTowns();
+    struct town currentTown;
+    currentTown = towns[townId];
+    struct town lastTown;
+    float value = 0.0;
+
+    for(int i = 0; i < MAX; i++) {
+        float kilometer = currentTown.kilometers[townId][i];
+        if (value < kilometer) {
+            value = kilometer;
+            lastTown = towns[i];
+        }
+    }
+
+    printf("\nThe furthest town from %s is %s with %.2f kilometers", currentTown.name, lastTown.name, value);
 }
