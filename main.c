@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX 3
+#define MAX 5
 
 // Prototypes
 void commonClear();
@@ -29,6 +29,7 @@ void commonSleep();
 void drawSplashScreen();
 void addData();
 int menu();
+void showDistancesBetweenTowns();
 
 // Structs
 struct town
@@ -53,6 +54,7 @@ int main ()
 
     // STEP 2: Insert kilometer data
     addData();
+    commonClear();
 
     // STEP 3: Start menu
     int action;
@@ -63,6 +65,7 @@ int main ()
         switch (action) {
             case 1:
                 printf ("Show distances table between towns.");
+                showDistancesBetweenTowns();
                 commonAwait();
                 break;
             case 2:
@@ -222,8 +225,41 @@ void addData()
                 continue;
             }
 
-            printf("\nEnter from %s to %s: ", towns[i].name, towns[j].name);
-            scanf("%f", &towns[i].kilometers[i][j]);
+            if (j < i) {
+                towns[i].kilometers[i][j] = towns[j].kilometers[j][i];
+            } else {
+                printf("\nEnter from %s to %s: ", towns[i].name, towns[j].name);
+                scanf("%f", &towns[i].kilometers[i][j]);
+            }
+        }
+    }
+}
+
+/**
+ * \brief Short description
+ * \author José Javier Peleato Pradel
+ * \since 1.0.0
+ * \date 2020-09-20
+ * \returns void
+ */
+void showDistancesBetweenTowns()
+{
+    // STEP 1: Print header
+    printf("\n\n");
+    for (int i = 0; i < MAX; i++) {
+        if (i == 0) {
+            printf("%10s | ", "");
+        }
+
+        printf("%10s | ", towns[i].name);
+    }
+
+    // STEP 2: Print data
+    for (int i = 0; i < MAX; i++) {
+        printf("\n%10s | ", towns[i].name);
+
+        for(int j = 0; j < MAX; j++) {
+            printf("%10.2f | ", towns[i].kilometers[i][j]);
         }
     }
 }
