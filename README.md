@@ -6,11 +6,20 @@ Created to run on Windows and Unix operating systems.
 
 ## Project
 
-~
+The Andalusian government has explained that there are 10 towns in Seville and that it is going to provide us with the distances in kilometers between each of the towns.
+
+Build a software that saved, showed and calculate the kilometers between towns.
 
 ### Installing dependencies
 
-~
+Ubuntu target environment is assumed
+
+```bash
+sudo apt update
+sudo apt install build-essential
+gcc --version
+```
+**Note:** I recommend installing the following IDE for C Programming: Visual Studio Code (https://code.visualstudio.com/).
 
 ### Project skeleton
 
@@ -22,25 +31,10 @@ Created to run on Windows and Unix operating systems.
 └─ README.md
 ```
 
-### Installing
-
-~
-
 ### Developing
 
-~
-
-### Technologies and tools
-
-~
-
-### Clarifications
-
-~
-
-### Others clarifications
-
-~
+- Open your terminal and browse to the root location of your project.
+- Run: `$sh build.sh`
 
 ## Finally
 
