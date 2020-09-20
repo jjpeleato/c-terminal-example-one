@@ -29,6 +29,7 @@ void commonSleep();
 void drawSplashScreen();
 void addData();
 int menu();
+void showDistancesBetweenTowns();
 
 // Structs
 struct town
@@ -63,6 +64,7 @@ int main ()
         switch (action) {
             case 1:
                 printf ("Show distances table between towns.");
+                showDistancesBetweenTowns();
                 commonAwait();
                 break;
             case 2:
@@ -224,6 +226,35 @@ void addData()
 
             printf("\nEnter from %s to %s: ", towns[i].name, towns[j].name);
             scanf("%f", &towns[i].kilometers[i][j]);
+        }
+    }
+}
+
+/**
+ * \brief Short description
+ * \author José Javier Peleato Pradel
+ * \since 1.0.0
+ * \date 2020-09-20
+ * \returns void
+ */
+void showDistancesBetweenTowns()
+{
+    // STEP 1: Print header
+    printf("\n\n");
+    for (int i = 0; i < MAX; i++) {
+        if (i == 0) {
+            printf("%10s | ", "");
+        }
+
+        printf("%10s | ", towns[i].name);
+    }
+
+    // STEP 2: Print data
+    for (int i = 0; i < MAX; i++) {
+        printf("\n%10s | ", towns[i].name);
+
+        for(int j = 0; j < MAX; j++) {
+            printf("%10.2f | ", towns[i].kilometers[i][j]);
         }
     }
 }
