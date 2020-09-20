@@ -31,6 +31,7 @@ void drawSplashScreen();
 void addData();
 int menu();
 void showDistancesBetweenTowns();
+void showTwoMostFarTowns();
 
 // Structs
 struct town
@@ -70,8 +71,8 @@ int main ()
     int action;
     while (action != 6){
 		action = menu();
-		
         commonClear();
+
         switch (action) {
             case 1:
                 printf ("Show distances table between towns.");
@@ -80,6 +81,7 @@ int main ()
                 break;
             case 2:
                 printf ("Show the two most far towns.");
+                showTwoMostFarTowns();
                 commonAwait();
                 break;
             case 3:
@@ -288,4 +290,29 @@ void showDistancesBetweenTowns()
             printf("%10.2f | ", towns[i].kilometers[i][j]);
         }
     }
+}
+
+/**
+ * \brief Short description
+ * \author José Javier Peleato Pradel
+ * \since 1.0.0
+ * \date 2020-09-20
+ * \returns void
+ */
+void showTwoMostFarTowns()
+{
+    struct town firstTown;
+    struct town lastTown;
+    float value = 0.0;
+
+    for(int i = 0; i < MAX; i++) {
+        float kilometer = towns[0].kilometers[0][i];
+        if (value < kilometer) {
+            value = kilometer;
+            firstTown = towns[0];
+            lastTown = towns[i];
+        }
+    }
+
+    printf("\n\nThe most far towns are %s and %s with %.2f kilometers", firstTown.name, lastTown.name, value);
 }
