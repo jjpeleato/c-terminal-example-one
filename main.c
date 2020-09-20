@@ -20,9 +20,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX 5
+#define MAX 3
 
 // Prototypes
+int checkMaxValue();
 void commonClear();
 void commonAwait();
 void commonSleep();
@@ -48,6 +49,15 @@ struct town towns[MAX];
  */
 int main ()
 {
+    // STEP 0: Not run
+    int isCheckMaxValue = checkMaxValue();
+    if (isCheckMaxValue == 0) {
+        printf ("\nFor security reasons the program has been stopped.");
+        printf ("\nPlease check the MAX constant. It must have a value between 3 and 10, inclusive.\n");
+
+        return 0;
+    }
+
     // STEP 1: Splash screen
     drawSplashScreen();
     commonAwait();
@@ -90,6 +100,22 @@ int main ()
 	}
 
     return 0;
+}
+
+/**
+ * \brief Do not execute when the MAX variable is less than 3 and more than 10
+ * \author José Javier Peleato Pradel
+ * \since 1.0.0
+ * \date 2020-09-20
+ * \returns int
+ */
+int checkMaxValue()
+{
+    if (MAX < 3 || MAX > 10) {
+        return 0;
+    }
+
+    return 1;
 }
 
 /**
@@ -175,13 +201,13 @@ int menu()
         commonClear();
         printf ("- Towns of Seville Software -");
         printf ("\n\nMain menu.");
-		printf ("\n\n\t1 - Show distances table between towns.");
-		printf ("\n\t2 - Show the two most far towns.");
+        printf ("\n\n\t1 - Show distances table between towns.");
+        printf ("\n\t2 - Show the two most far towns.");
         printf ("\n\t3 - Show far town by selected town.");
         printf ("\n\t4 - Show middletown.");
         printf ("\n\t5 - Calculate the number of kilometers the milkman trips.");
-		printf ("\n\t6 - Exit.");
-		printf ("\n\nInsert number: ");
+        printf ("\n\t6 - Exit.");
+        printf ("\n\nInsert number: ");
         fflush(stdin);
         scanf ("%d", &input);
 	} while (input != 1 && input != 2 && input != 3 && input != 4 && input != 5 && input != 6);
@@ -218,7 +244,7 @@ void addData()
     {
         commonClear();
         printf ("\n- Towns of Seville Software -");
-        printf("\n\nEnter kilometers of town %s", towns[i].name);
+        printf("\n\nAdd kilometers of town %s", towns[i].name);
 
         for(int j = 0; j < MAX; j++) {
             if (i == j) {
@@ -228,7 +254,7 @@ void addData()
             if (j < i) {
                 towns[i].kilometers[i][j] = towns[j].kilometers[j][i];
             } else {
-                printf("\nEnter from %s to %s: ", towns[i].name, towns[j].name);
+                printf("\nInsert from %s to %s: ", towns[i].name, towns[j].name);
                 scanf("%f", &towns[i].kilometers[i][j]);
             }
         }
