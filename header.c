@@ -1,6 +1,6 @@
 /**
  * \file header.c
- * \brief Towns of Seville.
+ * \brief Towns of Huesca.
  * Short description
  * \author José Javier Peleato Pradel
  * \version 1.0.0
@@ -95,7 +95,7 @@ void drawSplashScreen()
 	printf("\n  \\ V  V /  __/ | (_| (_) | | | | | |  __/"); commonSleep();
 	printf("\n   \\_/\\_/ \\___|_|\\___\\___/|_| |_| |_|\\___|"); commonSleep();
 	printf("\n\n"); commonSleep();
-	printf("\nTowns of Seville"); commonSleep();
+	printf("\nTowns of Huesca"); commonSleep();
 	printf("\nVersion 1.0.0"); commonSleep();
 	printf("\nJose Javier Peleato Pradel"); commonSleep();
 }
@@ -113,7 +113,7 @@ int menu()
 
     do {
         commonClear();
-        printf("- Towns of Seville Software -");
+        printf("- Towns of Huesca Software -");
         printf("\n\nMain menu.");
         printf("\n\n\t1 - Show distances table between towns.");
         printf("\n\t2 - Show the two most far towns.");
@@ -170,7 +170,7 @@ void addData()
     for(i = 0; i < MAX; i++)
     {
         commonClear();
-        printf("\n- Towns of Seville Software -");
+        printf("\n- Towns of Huesca Software -");
         printf("\n\nEnter details of town %d", i + 1);
 
         // To assign id
@@ -186,7 +186,7 @@ void addData()
     for(i = 0; i < MAX; i++)
     {
         commonClear();
-        printf("\n- Towns of Seville Software -");
+        printf("\n- Towns of Huesca Software -");
         printf("\n\nAdd kilometers of town %s\n", towns[i].name);
 
         for(j = 0; j < MAX; j++) {
