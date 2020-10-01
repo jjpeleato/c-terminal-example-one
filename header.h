@@ -1,9 +1,7 @@
 #ifndef _HEADER_H
     #define _HEADER_H
     #ifdef _WIN32
-        #define OS "win32"
-    #elseif _WIN64
-        #define OS "win64"
+        #define OS "win"
     #else
         #define OS "unix"
     #endif

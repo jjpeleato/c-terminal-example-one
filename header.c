@@ -10,8 +10,6 @@
 // Libraries and constants
 #ifdef _WIN32
     #include <windows.h>
-#elseif _WIN64
-    #include <windows.h>
 #else
     #include <unistd.h>
 #endif
@@ -44,7 +42,7 @@ int checkMaxValue()
  */
 void commonClear()
 {
-    if (OS == "win32" || OS == "win64") {
+    if (OS == "win") {
         system("cls");
     } else {
         system("clear");
@@ -140,12 +138,12 @@ int menu()
  */
 int menuTowns()
 {
-    int select;
+    int select, i;
 
     do {
         commonClear();
 
-        for (int i = 0; i < MAX; i++) {
+        for (i = 0; i < MAX; i++) {
             printf("\n\t%d - %s", towns[i].id, towns[i].name);
         }
 
@@ -166,8 +164,10 @@ int menuTowns()
  */
 void addData()
 {
+    int i, j;
+
     // STEP 1: Add names
-    for(int i = 0; i < MAX; i++)
+    for(i = 0; i < MAX; i++)
     {
         commonClear();
         printf("\n- Towns of Seville Software -");
@@ -183,13 +183,13 @@ void addData()
     }
 
     // STEP 2: Add kilometers
-    for(int i = 0; i < MAX; i++)
+    for(i = 0; i < MAX; i++)
     {
         commonClear();
         printf("\n- Towns of Seville Software -");
         printf("\n\nAdd kilometers of town %s\n", towns[i].name);
 
-        for(int j = 0; j < MAX; j++) {
+        for(j = 0; j < MAX; j++) {
             if (i == j) {
                 continue;
             }
@@ -216,11 +216,13 @@ void addData()
  */
 void showDistancesBetweenTowns()
 {
-    printf("Show distances table between towns.");
+    int i, j;
 
     // STEP 1: Print header
+    printf("Show distances table between towns.");
     printf("\n\n");
-    for (int i = 0; i < MAX; i++) {
+
+    for (i = 0; i < MAX; i++) {
         if (i == 0) {
             printf("%10s | ", "");
         }
@@ -229,10 +231,10 @@ void showDistancesBetweenTowns()
     }
 
     // STEP 2: Print data
-    for (int i = 0; i < MAX; i++) {
+    for (i = 0; i < MAX; i++) {
         printf("\n%10s | ", towns[i].name);
 
-        for(int j = 0; j < MAX; j++) {
+        for(j = 0; j < MAX; j++) {
             printf("%10.2f | ", towns[i].kilometers[i][j]);
         }
     }
@@ -247,14 +249,15 @@ void showDistancesBetweenTowns()
  */
 void showTwoMostFarTowns()
 {
-    printf("Show the two most far towns.");
-
+    int i, j;
     struct town firstTown;
     struct town lastTown;
     float value = 0.0;
+    
+    printf("Show the two most far towns.");
 
-    for(int i = 0; i < MAX; i++) {
-        for (int j = 0; j < MAX; j++) {
+    for(i = 0; i < MAX; i++) {
+        for (j = 0; j < MAX; j++) {
             float kilometer = towns[i].kilometers[i][j];
 
             if (value < kilometer) {
@@ -264,7 +267,7 @@ void showTwoMostFarTowns()
             }
         }
     }
-
+    
     printf("\n\nThe most far towns are %s and %s with %.2f kilometers", firstTown.name, lastTown.name, value);
 }
 
@@ -277,16 +280,18 @@ void showTwoMostFarTowns()
  */
 void showFarTownByTown()
 {
-    printf("Show far town by selected town.\n");
-
-    int townId = menuTowns();
+    int townId, i;
+    townId = menuTowns();
     struct town currentTown;
     currentTown = towns[townId];
     struct town lastTown;
     float value = 0.0;
 
-    for(int i = 0; i < MAX; i++) {
+    printf("Show far town by selected town.\n");
+
+    for(i = 0; i < MAX; i++) {
         float kilometer = currentTown.kilometers[townId][i];
+
         if (value < kilometer) {
             value = kilometer;
             lastTown = towns[i];
@@ -306,13 +311,15 @@ void showFarTownByTown()
  */
 void showMiddletown()
 {
-    printf("Show middletown.");
+    int i, j;
     struct town middleTown;
     float value = 12000.0;
 
-    for(int i = 0; i < MAX; i++) {
+    printf("Show middletown.");
+
+    for(i = 0; i < MAX; i++) {
         float sum = 0.0;
-        for(int j = 0; j < MAX; j++) {
+        for(j = 0; j < MAX; j++) {
             sum += towns[i].kilometers[i][j];
         }
 
@@ -334,11 +341,10 @@ void showMiddletown()
  */
 void showMilkman()
 {
-    int current;
-    int trip;
+    int current, trip, counter, auxiliar, i;
     int trips[ROUTE];
-    int counter = 0;
-    int auxiliar = 0;
+    counter = 0;
+    auxiliar = 0;
 
     // STEP 1: Starting city
     do {
@@ -346,7 +352,7 @@ void showMilkman()
         printf("Calculate the number of kilometers the milkman trips.");
         printf("\n\nWhere is the milkman?\n");
 
-        for (int i = 0; i < MAX; i++) {
+        for (i = 0; i < MAX; i++) {
             printf("\n\t%d - %s", towns[i].id, towns[i].name);
         }
         
@@ -365,7 +371,7 @@ void showMilkman()
         printf("\n\nWhat is the next town?");
         printf("\n\n\t-1 - Exit");
         
-        for (int i = 0; i < MAX; i++) {
+        for (i = 0; i < MAX; i++) {
             if (i == auxiliar) {
                 continue;
             }
@@ -389,7 +395,7 @@ void showMilkman()
     printf("Calculate the number of kilometers the milkman trips.\n");
 
     float kilometers = 0.0;
-    for (int i = 0; i < counter; i++) {
+    for (i = 0; i < counter; i++) {
         int currentIndex = trips[i];
         int nextIndex = trips[i+1];
 
