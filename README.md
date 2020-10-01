@@ -6,7 +6,7 @@ Created to run on Windows and Unix operating systems.
 
 ## Project
 
-The Andalusian government has explained that there are 10 towns in Seville and that it is going to provide us with the distances in kilometers between each of the towns.
+The Aragón government has explained that there are 10 towns in Huesca and that it is going to provide us with the distances in kilometers between each of the towns.
 
 Build a software that saved, showed and calculate the kilometers between towns.
 
